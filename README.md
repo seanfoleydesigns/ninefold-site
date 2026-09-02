@@ -12,4 +12,4 @@ Landing page for Ninefold, a free collection-tracking app for the Riftbound trad
 
 Push to `main`. In the repository settings, enable GitHub Pages from the `main` branch root and point the `ninefold.gg` DNS records at GitHub Pages.
 
-Ninefold was created under Riot Games' 'Legal Jibber Jabber' policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.
+Ninefold was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.
