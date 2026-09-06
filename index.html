@@ -12,12 +12,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* The app's palette (src/ui/tokens.ts in the app repo): navy for structure, teal for the accent. */
     :root {
-      --cream: #FFFBF2;
+      --canvas: #F7F8FA;
+      --white: #FFFFFF;
       --navy: #1B2140;
       --navy-soft: rgba(27, 33, 64, 0.72);
-      --gold: #FFD65A;
-      --amber: #F6A928;
+      --brand-top: #2A3B6E;
+      --brand-bottom: #1B2140;
+      --accent: #0FA3C2;
       --rule: rgba(27, 33, 64, 0.12);
     }
 
@@ -26,7 +29,7 @@
     html, body { margin: 0; padding: 0; }
 
     body {
-      background: var(--cream);
+      background: var(--canvas);
       color: var(--navy);
       font-family: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
       font-size: 17px;
@@ -38,21 +41,25 @@
     }
 
     .band {
-      background: linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%);
-      color: var(--navy);
+      background: linear-gradient(180deg, var(--brand-top) 0%, var(--brand-bottom) 100%);
+      color: var(--white);
+      text-shadow: 0 1px 2px rgba(27, 33, 64, 0.25);
       padding: 56px 24px 64px;
     }
 
+    /* The wordmark's size lives here, so the mark scales with it. */
     .band-inner {
       max-width: 720px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       gap: 18px;
+      font-size: clamp(2.4rem, 7vw, 3.6rem);
     }
 
+    /* The 9 in the band's white, the tip in teal; the height is the wordmark's cap height (about 44px at 3.6rem). */
     .mark {
-      height: 22px;
+      height: 0.76em;
       width: auto;
       flex: 0 0 auto;
       display: block;
@@ -60,7 +67,7 @@
 
     .wordmark {
       margin: 0;
-      font-size: clamp(2.4rem, 7vw, 3.6rem);
+      font-size: 1em;
       font-weight: 800;
       letter-spacing: -0.03em;
       line-height: 1;
@@ -88,8 +95,9 @@
       display: inline-block;
       font-weight: 600;
       padding: 8px 14px;
-      border: 1.5px solid var(--navy);
+      border: 1.5px solid var(--accent);
       border-radius: 999px;
+      color: var(--accent);
       font-size: 0.95rem;
       margin-bottom: 28px;
     }
@@ -97,15 +105,15 @@
     .contact { color: var(--navy-soft); }
 
     a {
-      color: var(--navy);
+      color: var(--accent);
       font-weight: 600;
       text-decoration: underline;
-      text-decoration-color: var(--amber);
+      text-decoration-color: var(--accent);
       text-decoration-thickness: 2px;
       text-underline-offset: 3px;
     }
 
-    a:hover { text-decoration-color: var(--navy); }
+    a:hover { color: var(--navy); text-decoration-color: var(--navy); }
 
     footer {
       max-width: 720px;
