@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Shared binders are for the people they were sent to, never for search engines. -->
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#1b2140" />
+    <meta property="og:site_name" content="Ninefold" />
+    <meta property="og:title" content="A binder shared from Ninefold" />
+    <meta property="og:description" content="The cards in the binder and what's still needed" />
+    <title>Shared binder · Ninefold</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /*
+       * The shared-binder page (docs/plans/m3-slice-5.md, choice 5): one file, no build, the app's
+       * look. The values below are src/ui/tokens.ts as of 2026-09-06 (color, radius, shadow, type,
+       * space); change them there first, then here.
+       */
+      :root {
+        --brand-top: #2a3b6e;
+        --brand-bottom: #1b2140;
+        --navy: #1b2140;
+        --ink: #1f2233;
+        --ink2: #6e7385;
+        --ink3: #a3a7b5;
+        --canvas: #f7f8fa;
+        --white: #ffffff;
+        --line: #e9ebf0;
+        --plate: #edeff3;
+        --accent: #0fa3c2;
+        --accent2: #33c4da;
+        --accent-text: #087a94;
+        --tint: #e6f8fb;
+        --glass: rgba(255, 255, 255, 0.2);
+        --radius-card: 16px;
+        --radius-tile: 14px;
+        --radius-image: 9px;
+        --radius-pill: 999px;
+        --shadow-card: 0 4px 14px rgba(27, 33, 64, 0.06);
+        --shadow-art: 0 8px 18px rgba(27, 33, 64, 0.18);
+        --text-shadow-header: 0 1px 2px rgba(27, 33, 64, 0.25);
+        --screen-x: 18px;
+        --card-pad: 14px;
+        --gap-x: 12px;
+        --gap-y: 14px;
+        --tracking: -0.03em;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        background: var(--canvas);
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--canvas);
+        font-family:
+          'Plus Jakarta Sans',
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        font-size: 15px;
+        line-height: 22px;
+        font-weight: 500;
+        letter-spacing: var(--tracking);
+        -webkit-font-smoothing: antialiased;
+        font-variant-numeric: tabular-nums;
+      }
+      a {
+        color: var(--accent-text);
+      }
+      .page {
+        max-width: 480px;
+        margin: 0 auto;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .hero {
+        background: linear-gradient(180deg, var(--brand-top), var(--brand-bottom));
+        color: var(--white);
+        padding: calc(env(safe-area-inset-top, 0px) + 20px) var(--screen-x) 24px;
+        text-shadow: var(--text-shadow-header);
+      }
+      .wordmark {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 700;
+        color: var(--white);
+        text-decoration: none;
+      }
+      .mark {
+        display: grid;
+        grid-template-columns: repeat(3, 5px);
+        gap: 2px;
+        width: 19px;
+        padding: 3px;
+        border-radius: 5px;
+        background: var(--glass);
+      }
+      .mark span {
+        width: 5px;
+        height: 5px;
+        border-radius: 2px;
+        background: var(--white);
+      }
+      .mark span:nth-child(9) {
+        background: var(--accent2);
+      }
+      .hero h1 {
+        margin: 18px 0 0;
+        font-size: 26px;
+        line-height: 32px;
+        font-weight: 700;
+        overflow-wrap: anywhere;
+      }
+      .hero .caption {
+        margin: 4px 0 0;
+        font-size: 12px;
+        line-height: 16px;
+        opacity: 0.85;
+      }
+      main {
+        flex: 1;
+        padding: 16px var(--screen-x) 24px;
+      }
+      .stats {
+        background: var(--white);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-card);
+        padding: var(--card-pad);
+        margin-bottom: 16px;
+      }
+      .stats .row {
+        display: flex;
+        gap: 12px;
+      }
+      .stat {
+        flex: 1;
+        min-width: 0;
+      }
+      .label {
+        font-size: 11px;
+        line-height: 14px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink2);
+      }
+      .value {
+        font-size: 22px;
+        line-height: 26px;
+        font-weight: 700;
+        margin-top: 2px;
+      }
+      .unit {
+        font-size: 12px;
+        line-height: 16px;
+        color: var(--ink2);
+      }
+      .bar {
+        margin-top: 12px;
+        height: 6px;
+        border-radius: var(--radius-pill);
+        background: var(--line);
+        overflow: hidden;
+      }
+      .bar div {
+        height: 100%;
+        width: 0;
+        border-radius: var(--radius-pill);
+        background: linear-gradient(180deg, var(--accent2), var(--accent));
+        transition: width 250ms ease-out;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .bar div {
+          transition: none;
+        }
+      }
+      .grid {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: var(--gap-x);
+        row-gap: var(--gap-y);
+      }
+      .tile {
+        min-width: 0;
+      }
+      .art {
+        position: relative;
+        aspect-ratio: 63 / 88;
+        border-radius: var(--radius-image);
+        background: var(--plate);
+        overflow: hidden;
+        box-shadow: var(--shadow-art);
+      }
+      .art img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .art .placeholder {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: flex-end;
+        padding: 10px;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 600;
+        color: var(--ink2);
+        background: var(--plate);
+      }
+      .tile.dim .art {
+        opacity: 0.5;
+      }
+      .badge {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        min-width: 22px;
+        height: 22px;
+        padding: 0 7px;
+        border-radius: var(--radius-pill);
+        background: var(--navy);
+        color: var(--white);
+        font-size: 12px;
+        line-height: 22px;
+        font-weight: 700;
+        text-align: center;
+      }
+      .badge.complete {
+        background: var(--accent2);
+      }
+      .name {
+        margin: 8px 0 0;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .tag,
+      .scope {
+        margin: 0;
+        font-size: 12px;
+        line-height: 16px;
+        color: var(--ink2);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .need {
+        margin: 2px 0 0;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 600;
+      }
+      .need.complete {
+        color: var(--accent-text);
+      }
+      .notice {
+        background: var(--white);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-card);
+        padding: 24px var(--card-pad);
+        text-align: center;
+      }
+      .notice h2 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 700;
+      }
+      .notice p {
+        margin: 6px 0 0;
+        color: var(--ink2);
+        font-weight: 400;
+      }
+      .button {
+        display: inline-block;
+        margin-top: 16px;
+        min-height: 44px;
+        padding: 10px 20px;
+        border: 1.5px solid var(--navy);
+        border-radius: var(--radius-pill);
+        background: transparent;
+        color: var(--navy);
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .skeleton .art {
+        box-shadow: none;
+      }
+      .skeleton .line {
+        height: 12px;
+        margin-top: 10px;
+        border-radius: 6px;
+        background: var(--plate);
+      }
+      .skeleton .line.short {
+        width: 60%;
+        margin-top: 6px;
+      }
+      main[data-state='loading'] .stats,
+      main[data-state='loading'] .notice,
+      main[data-state='ready'] .notice,
+      main[data-state='ready'] .skeleton,
+      main[data-state='empty'] .grid,
+      main[data-state='missing'] .stats,
+      main[data-state='missing'] .grid,
+      main[data-state='error'] .stats,
+      main[data-state='error'] .grid,
+      main[data-state='not-found'] .stats,
+      main[data-state='not-found'] .grid {
+        display: none;
+      }
+      footer {
+        padding: 8px var(--screen-x) calc(env(safe-area-inset-bottom, 0px) + 24px);
+        text-align: center;
+        color: var(--ink2);
+        font-size: 12px;
+        line-height: 16px;
+      }
+      footer p {
+        margin: 6px 0 0;
+      }
+      footer .fine {
+        font-size: 11px;
+        line-height: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <a class="wordmark" href="/" aria-label="Ninefold">
+          <span class="mark" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span
+            ><span></span><span></span><span></span>
+          </span>
+          Ninefold
+        </a>
+        <h1 id="title">Shared binder</h1>
+        <p class="caption" id="subtitle"></p>
+      </header>
+      <main id="main" data-state="loading" aria-busy="true">
+        <section class="stats" id="stats" aria-label="Progress">
+          <div class="row">
+            <div class="stat">
+              <div class="label">Goals</div>
+              <div class="value" id="goals">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">Collected</div>
+              <div class="value" id="percent">0%</div>
+              <div class="unit" id="copies">0 of 0 copies</div>
+            </div>
+          </div>
+          <div
+            class="bar"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            id="bar"
+          >
+            <div id="fill"></div>
+          </div>
+        </section>
+        <div class="notice" id="notice" role="status">
+          <h2 id="notice-title"></h2>
+          <p id="notice-body"></p>
+        </div>
+        <ul class="grid" id="grid" aria-label="Cards"></ul>
+      </main>
+      <footer>
+        <p>Shared from <a href="/">Ninefold</a>, a collection app for Riftbound.</p>
+        <p class="fine">
+          Ninefold was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by
+          Riot Games. Riot Games does not endorse or sponsor this project.
+        </p>
+      </footer>
+    </div>
+    <script>
+      (function () {
+        // Filled by scripts/site-render.mjs; the source file carries the placeholders only.
+        var SUPABASE_URL = 'https://vtwpvyswlnxvhhkgmaqw.supabase.co';
+        var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ0d3B2eXN3bG54dmhoa2dtYXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2MDk5MTEsImV4cCI6MjEwNDE4NTkxMX0.1CxMZrqPAh_gWtU-v56ZKrGKl0jV70mpF8fmGXLjago';
+        var TOKEN = /^[A-Za-z0-9_-]{16,64}$/;
+        var KIND_LABELS = { custom: 'Custom', deck: 'Deck', trade: 'Trade', wants: 'Wants' };
+        var FINISH_LABELS = { normal: 'Normal', foil: 'Foil', metal: 'Metal' };
+        var LANGUAGE_LABELS = { en: 'English', zh: 'Chinese' };
+
+        var main = document.getElementById('main');
+        var grid = document.getElementById('grid');
+        var byId = function (id) {
+          return document.getElementById(id);
+        };
+
+        function formatInteger(n) {
+          return Number(n || 0).toLocaleString('en-US');
+        }
+        function formatPercent(owned, total) {
+          return (total > 0 ? Math.round((owned / total) * 100) : 0) + '%';
+        }
+        function goalsLine(n) {
+          return n <= 0 ? 'No goals yet' : formatInteger(n) + (n === 1 ? ' goal' : ' goals');
+        }
+        function el(tag, className, text) {
+          var node = document.createElement(tag);
+          if (className) node.className = className;
+          if (text !== undefined) node.textContent = text;
+          return node;
+        }
+        function setState(state) {
+          main.setAttribute('data-state', state);
+          main.setAttribute('aria-busy', state === 'loading' ? 'true' : 'false');
+        }
+        function notice(state, title, body) {
+          byId('notice-title').textContent = title;
+          byId('notice-body').textContent = body || '';
+          var old = byId('retry');
+          if (old) old.remove();
+          setState(state);
+        }
+
+        function tokenFromLocation() {
+          var path = location.pathname.match(/^\/b\/([^/]+)\/?$/);
+          if (path && TOKEN.test(path[1])) return path[1];
+          var query = new URLSearchParams(location.search).get('t');
+          if (query && TOKEN.test(query)) return query;
+          var hash = location.hash.replace(/^#/, '');
+          if (hash && TOKEN.test(hash)) return hash;
+          return null;
+        }
+        function onBinderPath() {
+          return (
+            /^\/b(\/|$)/.test(location.pathname) || new URLSearchParams(location.search).has('t')
+          );
+        }
+
+        function skeleton() {
+          for (var i = 0; i < 6; i += 1) {
+            var tile = el('li', 'tile skeleton');
+            tile.setAttribute('aria-hidden', 'true');
+            tile.appendChild(el('div', 'art'));
+            tile.appendChild(el('div', 'line'));
+            tile.appendChild(el('div', 'line short'));
+            grid.appendChild(tile);
+          }
+        }
+
+        function scopeOf(goal) {
+          var parts = [];
+          if (goal.anyPrinting) parts.push('Any printing');
+          if (goal.finish && FINISH_LABELS[goal.finish]) parts.push(FINISH_LABELS[goal.finish]);
+          if (goal.language && LANGUAGE_LABELS[goal.language])
+            parts.push(LANGUAGE_LABELS[goal.language]);
+          return parts.join(' · ');
+        }
+
+        function tileOf(goal) {
+          var card = goal.card || {};
+          var printing = goal.printing || {};
+          var set = goal.set || {};
+          var wanted = Number(goal.wanted) || 0;
+          var owned = Math.min(Number(goal.owned) || 0, wanted);
+          var complete = wanted > 0 && owned >= wanted;
+          var tile = el('li', 'tile' + (owned === 0 ? ' dim' : ''));
+          var art = el('div', 'art');
+          if (printing.thumbnailUrl) {
+            var img = el('img');
+            img.src = printing.thumbnailUrl;
+            img.alt = '';
+            img.loading = 'lazy';
+            img.decoding = 'async';
+            img.referrerPolicy = 'no-referrer';
+            art.appendChild(img);
+          } else {
+            art.appendChild(el('div', 'placeholder', card.name || ''));
+          }
+          var badge = el('span', 'badge' + (complete ? ' complete' : ''), owned + '/' + wanted);
+          badge.setAttribute('aria-hidden', 'true');
+          art.appendChild(badge);
+          tile.appendChild(art);
+          tile.appendChild(el('p', 'name', card.name || 'Unknown card'));
+          var tag =
+            '#' + (printing.collectorNumber || '?') + '/' + formatInteger(printing.printedTotal);
+          tile.appendChild(el('p', 'tag', set.name ? tag + ' · ' + set.name : tag));
+          var scope = scopeOf(goal);
+          if (scope) tile.appendChild(el('p', 'scope', scope));
+          var need = wanted - owned;
+          tile.appendChild(
+            el(
+              'p',
+              'need' + (complete ? ' complete' : ''),
+              complete ? 'Complete' : formatInteger(need) + ' needed',
+            ),
+          );
+          tile.setAttribute(
+            'aria-label',
+            (card.name || 'Unknown card') +
+              ', ' +
+              tag +
+              (scope ? ', ' + scope : '') +
+              ', ' +
+              formatInteger(owned) +
+              ' of ' +
+              formatInteger(wanted) +
+              ' copies' +
+              (complete ? ', complete' : ', ' + formatInteger(need) + ' needed'),
+          );
+          return tile;
+        }
+
+        function render(data) {
+          if (data === null || typeof data !== 'object') {
+            notice(
+              'missing',
+              'Nothing is shared at this link',
+              'The binder may have stopped sharing, or the link is not right.',
+            );
+            return;
+          }
+          var binder = data.binder || {};
+          var goals = Array.isArray(data.goals) ? data.goals : [];
+          var totals = data.totals || {};
+          var wanted = Number(totals.wanted) || 0;
+          var owned = Number(totals.owned) || 0;
+          var name = binder.name || 'Shared binder';
+          document.title = name + ' · Ninefold';
+          byId('title').textContent = name;
+          byId('subtitle').textContent =
+            (KIND_LABELS[binder.kind] || 'Binder') + ' · ' + goalsLine(goals.length);
+          byId('goals').textContent = formatInteger(goals.length);
+          byId('percent').textContent = formatPercent(owned, wanted);
+          byId('copies').textContent =
+            formatInteger(owned) + ' of ' + formatInteger(wanted) + ' copies';
+          var percent = wanted > 0 ? Math.round((owned / wanted) * 100) : 0;
+          byId('bar').setAttribute('aria-valuenow', String(percent));
+          byId('bar').setAttribute(
+            'aria-label',
+            'Collected ' +
+              percent +
+              '%, ' +
+              formatInteger(owned) +
+              ' of ' +
+              formatInteger(wanted) +
+              ' copies',
+          );
+          grid.textContent = '';
+          if (goals.length === 0) {
+            notice('empty', 'No cards in this binder yet', '');
+            return;
+          }
+          goals.forEach(function (goal) {
+            grid.appendChild(tileOf(goal));
+          });
+          setState('ready');
+          // After layout, so the fill animates from empty.
+          requestAnimationFrame(function () {
+            byId('fill').style.width = percent + '%';
+          });
+        }
+
+        function load(token) {
+          setState('loading');
+          fetch(SUPABASE_URL + '/rest/v1/rpc/shared_binder', {
+            method: 'POST',
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({ token: token }),
+          })
+            .then(function (response) {
+              if (!response.ok) throw new Error('HTTP ' + response.status);
+              return response.json();
+            })
+            .then(render)
+            .catch(function () {
+              notice('error', "Couldn't load this binder", 'Check your connection and try again.');
+              var retry = el('button', 'button', 'Try again');
+              retry.id = 'retry';
+              retry.type = 'button';
+              retry.addEventListener('click', function () {
+                load(token);
+              });
+              byId('notice').appendChild(retry);
+            });
+        }
+
+        skeleton();
+        if (!onBinderPath()) {
+          document.title = 'Page not found · Ninefold';
+          byId('title').textContent = 'Page not found';
+          notice('not-found', "There's nothing at this address", '');
+          var home = el('a', 'button', 'Go to ninefold.gg');
+          home.href = '/';
+          byId('notice').appendChild(home);
+          return;
+        }
+        var token = tokenFromLocation();
+        if (!token) {
+          notice(
+            'missing',
+            'Nothing is shared at this link',
+            'The binder may have stopped sharing, or the link is not right.',
+          );
+          return;
+        }
+        load(token);
+      })();
+    </script>
+  </body>
+</html>
