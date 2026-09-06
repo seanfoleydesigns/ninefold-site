@@ -20,7 +20,8 @@
       --navy-soft: rgba(27, 33, 64, 0.72);
       --brand-top: #2A3B6E;
       --brand-bottom: #1B2140;
-      --accent: #0FA3C2;
+      /* Teal as text, the app's accentText: 4.5:1 on the canvas, where #0FA3C2 (fills only) is not. */
+      --accent-text: #087A94;
       --rule: rgba(27, 33, 64, 0.12);
     }
 
@@ -95,9 +96,9 @@
       display: inline-block;
       font-weight: 600;
       padding: 8px 14px;
-      border: 1.5px solid var(--accent);
+      border: 1.5px solid var(--accent-text);
       border-radius: 999px;
-      color: var(--accent);
+      color: var(--accent-text);
       font-size: 0.95rem;
       margin-bottom: 28px;
     }
@@ -105,10 +106,10 @@
     .contact { color: var(--navy-soft); }
 
     a {
-      color: var(--accent);
+      color: var(--accent-text);
       font-weight: 600;
       text-decoration: underline;
-      text-decoration-color: var(--accent);
+      text-decoration-color: var(--accent-text);
       text-decoration-thickness: 2px;
       text-underline-offset: 3px;
     }
